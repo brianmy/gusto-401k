@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gusto 401(k) — Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'GCentra', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #F8F9FA;
+      color: #374151;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: #1E293B;
+      color: white;
+      padding: 56px 48px 52px;
+    }
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #94A3B8;
+      margin-bottom: 12px;
+    }
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: white;
+    }
+    .hero-title span { color: #F45D48; }
+    .hero-desc {
+      font-size: 15px;
+      color: #94A3B8;
+      line-height: 1.65;
+      max-width: 640px;
+    }
+
+    /* ── Sections ── */
+    .section {
+      padding: 56px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: #F45D48;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+    .section-desc {
+      font-size: 14px;
+      color: #6B7280;
+      line-height: 1.6;
+      max-width: 600px;
+      margin-bottom: 32px;
+    }
+    .divider {
+      border: none;
+      border-top: 1px solid #E5E7EB;
+    }
+
+    /* ── Act 1: Email ── */
+    .email-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      background: white;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 28px 32px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      max-width: 680px;
+    }
+    .email-card:hover {
+      border-color: #F45D48;
+      box-shadow: 0 4px 20px rgba(244, 93, 72, 0.1);
+    }
+    .email-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #FEF2F0;
+      color: #F45D48;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .email-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+    .email-card-desc {
+      font-size: 13.5px;
+      color: #6B7280;
+      line-height: 1.6;
+    }
+    .email-card-cta {
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #F45D48;
+    }
+
+    /* ── Act 2: Flow ── */
+    .flow {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+    }
+    .flow-step {
+      flex: 1;
+      background: white;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 24px 22px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      position: relative;
+    }
+    .flow-step:hover {
+      border-color: #0A8080;
+      box-shadow: 0 4px 16px rgba(10, 128, 128, 0.1);
+      z-index: 1;
+    }
+    .flow-connector {
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+      color: #D1D5DB;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #0A8080;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .step-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .step-desc {
+      font-size: 12.5px;
+      color: #6B7280;
+      line-height: 1.55;
+    }
+    .step-tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #0A8080;
+      background: #E6F4F4;
+      padding: 3px 9px;
+      border-radius: 100px;
+    }
+
+    /* ── Resources ── */
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .screenshot-card {
+      background: white;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .screenshot-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+      border-bottom: 1px solid #E5E7EB;
+    }
+    .screenshot-body {
+      padding: 16px 18px;
+    }
+    .screenshot-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #9CA3AF;
+      margin-bottom: 5px;
+    }
+    .screenshot-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1E293B;
+      margin-bottom: 5px;
+      line-height: 1.35;
+    }
+    .screenshot-desc {
+      font-size: 12.5px;
+      color: #6B7280;
+      line-height: 1.5;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: #1E293B;
+      color: #64748B;
+      font-size: 12.5px;
+      text-align: center;
+      padding: 24px 48px;
+    }
+    .footer a { color: #94A3B8; text-decoration: none; }
+    .footer a:hover { color: white; }
+  </style>
+</head>
+<body>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="hero-logo">
+    <svg viewBox="0 0 1040.65 399.35" xmlns="http://www.w3.org/2000/svg" style="width:72px;height:auto;color:#F45D48;" aria-label="Gusto" role="img">
+      <path fill="currentColor" d="M920.06 61.34A115.69 115.69 0 1 0 1035.74 177 115.81 115.81 0 0 0 920.06 61.34zm0 176.5A60.82 60.82 0 1 1 980.88 177a60.89 60.89 0 0 1-60.82 60.84zM579.44 153.62l-20.21-10.1q-13.14-6.47-16.46-10.2a12 12 0 0 1-3.33-8.18c0-3.9 1.74-7.17 5.25-9.8s8.35-3.94 14.54-3.94q17 0 37.78 20.61l34.14-34.14a89.18 89.18 0 0 0-72.32-36.36q-31.32 0-51.41 18.48t-20.1 44.54q0 40.41 53.33 67.28l18.58 9.29q24 12.12 24 24.85 0 6.87-6.66 12.12T559 243.32q-10.11 0-23.13-7a85.18 85.18 0 0 1-23-18L479.24 255q28.67 37.57 76.76 37.57 36.16 0 57.68-19.59t21.51-48.89q0-22-11.92-38.38t-43.83-32.09zM236.05 65.92h-54.87l.18 19.73c-17.77-18-39.66-24.31-62.18-24.31a115.69 115.69 0 0 0 0 231.38c26.63 0 49.42-11.8 61.16-26.81 0 .91-.08 11.82-.11 13-.22 7.46-1.3 19.41-8.33 31.62A60.6 60.6 0 0 1 87.53 331l-27.29 47.5a114.77 114.77 0 0 0 59.46 16.64c30.36 0 68.22-12 95.07-49.21 22.33-30.92 21.28-60.13 21.28-88.41zM119.18 237.84A60.82 60.82 0 1 1 180 177a60.88 60.88 0 0 1-60.82 60.84zM454.8 65.92h-55.15v110c.11 15.58.09 42.57-11.4 54.14-5.51 5.54-11.51 10.5-24.24 10.5s-18.78-5-24.28-10.5c-11.49-11.57-11.46-38.56-11.35-54.14v-110h-55.11v109.61c-.15 22.57-.43 64.6 27.24 92.45 16.24 16.34 35.58 24.63 63.54 24.63s47.31-8.29 63.55-24.63c27.67-27.85 27.39-69.88 27.24-92.45z"/><path fill="currentColor" d="M740.05 237.18c-6.29-.85-12.48-5.34-16-13.54-2.41-5.62-3.28-13-3.28-22.09V113.1h64.81V65.75h-64.81V4.25h-55v192.84c0 18.91 1.52 41.83 14 63 10.65 18 29.41 32.55 60.2 32.55 37.33 0 64.19-27 64.19-27l-33-40.58s-14.49 14.37-31.11 12.12z"/>
+    </svg>
+  </div>
+  <div class="hero-eyebrow">Product concept · 401(k) onboarding</div>
+  <h1 class="hero-title">Using payroll data to drive<br><span>retirement plan adoption</span></h1>
+  <p class="hero-desc">Gusto already knows which of its customers are in mandated states, how many employees they have, and whether they have a retirement plan. This prototype explores what happens when you use that data to surface the right action at the right moment — without asking the owner to do any of the work.</p>
+</div>
+
+<!-- ── Act 1 ── -->
+<div style="background: white; border-bottom: 1px solid #E5E7EB;">
+  <div class="section">
+    <div class="section-label">Act 1</div>
+    <div class="section-title">The trigger</div>
+    <p class="section-desc">Before the owner ever logs in, Gusto detects the compliance gap from payroll data and sends a targeted email. No campaign. No new data collection. Just a signal Gusto already has.</p>
+    <a href="email-compliance-alert.html" class="email-card">
+      <div class="email-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </div>
+      <div>
+        <div class="email-card-title">Compliance alert email</div>
+        <div class="email-card-desc">Sent automatically when Gusto detects a New York business with 10 or more uncovered employees. Leads with the tax credit, not the fine. Links directly into the setup flow.</div>
+        <div class="email-card-cta">View email →</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Act 2 ── -->
+<div style="background: #F8F9FA; border-bottom: 1px solid #E5E7EB;">
+  <div class="section">
+    <div class="section-label">Act 2</div>
+    <div class="section-title">The in-product experience</div>
+    <p class="section-desc">Once the owner logs in, the mandate surfaces again — this time as a task in the dashboard and a featured recommendation in Benefits. The setup flow uses payroll data to pre-fill everything, reducing the process to a review and confirm.</p>
+    <div class="flow">
+      <a href="home-v2.html" class="flow-step">
+        <div class="step-num">1</div>
+        <div class="step-title">Dashboard</div>
+        <div class="step-desc">Mandate banner fires at the top. Compliance task card surfaces in Important tasks with the credit amount front and center.</div>
+        <span class="step-tag">home-v2.html</span>
+      </a>
+      <div class="flow-connector">›</div>
+      <a href="benefits-v2.html" class="flow-step">
+        <div class="step-num">2</div>
+        <div class="step-title">Benefits page</div>
+        <div class="step-desc">401(k) elevated to the top of Recommended — above Health for the first time — with the mandate context and a direct CTA.</div>
+        <span class="step-tag">benefits-v2.html</span>
+      </a>
+      <div class="flow-connector">›</div>
+      <a href="setup-401k-1.html" class="flow-step">
+        <div class="step-num">3</div>
+        <div class="step-title">Setup: Credits</div>
+        <div class="step-desc">Mandate deadline and SECURE 2.0 credit breakdown side by side. Sets context before asking the owner to confirm anything.</div>
+        <span class="step-tag">setup-401k-1.html</span>
+      </a>
+      <div class="flow-connector">›</div>
+      <a href="setup-401k-2.html" class="flow-step">
+        <div class="step-num">4</div>
+        <div class="step-title">Setup: Plan details</div>
+        <div class="step-desc">Payroll data pre-fills business name, employees, pay schedule, and plan type. Safe Harbor pre-selected with a reason — not a comparison table.</div>
+        <span class="step-tag">setup-401k-2.html</span>
+      </a>
+      <div class="flow-connector">›</div>
+      <a href="setup-401k-3.html" class="flow-step">
+        <div class="step-num">5</div>
+        <div class="step-title">Setup: Confirm</div>
+        <div class="step-desc">SECURE 2.0 enrollment settings reviewed. One button activates the plan, triggers employee invitations, and closes the compliance gap.</div>
+        <span class="step-tag">setup-401k-3.html</span>
+      </a>
+    </div>
+    <p style="margin-top:16px; font-size:12.5px; color:#9CA3AF;">Tip: enable <strong>Product thinking</strong> (bottom right of any page) to see annotated design rationale on each screen.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ── Resources ── -->
+<div style="background: white;">
+  <div class="section">
+    <div class="section-label">Resources</div>
+    <div class="section-title">Current state, for reference</div>
+    <p class="section-desc">Screenshots of the existing Gusto and Guideline experience — useful for showing the before/after contrast.</p>
+    <div class="screenshots">
+
+      <div class="screenshot-card">
+        <img src="teardown/01_gusto_benefits_current.png" alt="Current Gusto Benefits page" class="screenshot-img">
+        <div class="screenshot-body">
+          <div class="screenshot-label">Gusto today</div>
+          <div class="screenshot-title">Benefits page — current state</div>
+          <div class="screenshot-desc">401(k) buried in Financial Health, below all five Health items. No mandate context. No urgency signal.</div>
+        </div>
+      </div>
+
+      <div class="screenshot-card">
+        <img src="teardown/03_guideline_plan_picker_top.png" alt="Guideline plan picker" class="screenshot-img">
+        <div class="screenshot-body">
+          <div class="screenshot-label">Guideline today</div>
+          <div class="screenshot-title">Plan selection — cold start</div>
+          <div class="screenshot-desc">User exits Gusto entirely and lands here. No payroll pre-fill. No mandate context. No recommendation on which plan to pick.</div>
+        </div>
+      </div>
+
+      <div class="screenshot-card">
+        <img src="teardown/02_guideline_plan_selection.png" alt="Guideline comparison table" class="screenshot-img">
+        <div class="screenshot-body">
+          <div class="screenshot-label">Guideline today</div>
+          <div class="screenshot-title">Plan comparison — defaults to Starter</div>
+          <div class="screenshot-desc">Starter 401(k) pre-selected by default — $6,000 contribution limit vs. $24,500 for Safe Harbor. Most small businesses should use Safe Harbor.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<div class="footer">
+  Product concept by Brian My &nbsp;·&nbsp; <a href="https://github.com/brianmy/gusto-401k" target="_blank">GitHub</a>
+</div>
+
+</body>
+</html>
