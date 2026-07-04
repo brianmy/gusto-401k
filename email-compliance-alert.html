@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gusto Email — Retirement Plan Compliance Alert</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #F6F6F6;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      color: #333333;
+    }
+    .email-wrap {
+      max-width: 620px;
+      margin: 32px auto;
+      background: #ffffff;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .email-header {
+      background: #ffffff;
+      padding: 20px 40px;
+      border-bottom: 1px solid #EEEEEE;
+    }
+
+    /* Hero */
+    .email-hero {
+      background: #E8F5F2;
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .hero-text h1 {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #1A1A1A;
+      max-width: 280px;
+    }
+    .hero-illustration {
+      flex-shrink: 0;
+      width: 120px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Body */
+    .email-body {
+      background: #ffffff;
+      padding: 32px 40px;
+    }
+    .intro-text {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #444444;
+      margin-bottom: 28px;
+    }
+
+    /* Feature rows */
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .feature-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    .feature-copy {}
+    .feature-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A1A1A;
+      margin-bottom: 4px;
+    }
+    .feature-desc {
+      font-size: 14px;
+      line-height: 1.55;
+      color: #555555;
+    }
+
+    /* CTA */
+    .cta-wrap {
+      text-align: center;
+      margin: 32px 0 8px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: #F45D48;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 13px 32px;
+      border-radius: 6px;
+    }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid #EEEEEE;
+      margin: 28px 0;
+    }
+
+    /* Footer */
+    .email-footer {
+      background: #F6F6F6;
+      padding: 28px 40px;
+      border-top: 1px solid #EEEEEE;
+    }
+    .footer-connect {
+      font-size: 13px;
+      font-weight: 700;
+      color: #333333;
+      margin-bottom: 6px;
+    }
+    .footer-text {
+      font-size: 13px;
+      line-height: 1.55;
+      color: #666666;
+    }
+    .footer-text a {
+      color: #F45D48;
+      text-decoration: none;
+    }
+    .footer-legal {
+      font-size: 11.5px;
+      color: #999999;
+      margin-top: 16px;
+      line-height: 1.55;
+    }
+    .footer-legal a {
+      color: #999999;
+    }
+  </style>
+</head>
+<body>
+
+<div class="email-wrap">
+
+  <!-- Header: Gusto logo -->
+  <div class="email-header">
+    <svg viewBox="0 0 1040.65 399.35" xmlns="http://www.w3.org/2000/svg" style="width:64px;height:auto;display:block;" aria-label="Gusto">
+      <path fill="#F45D48" d="M920.06 61.34A115.69 115.69 0 1 0 1035.74 177 115.81 115.81 0 0 0 920.06 61.34zm0 176.5A60.82 60.82 0 1 1 980.88 177a60.89 60.89 0 0 1-60.82 60.84zM579.44 153.62l-20.21-10.1q-13.14-6.47-16.46-10.2a12 12 0 0 1-3.33-8.18c0-3.9 1.74-7.17 5.25-9.8s8.35-3.94 14.54-3.94q17 0 37.78 20.61l34.14-34.14a89.18 89.18 0 0 0-72.32-36.36q-31.32 0-51.41 18.48t-20.1 44.54q0 40.41 53.33 67.28l18.58 9.29q24 12.12 24 24.85 0 6.87-6.66 12.12T559 243.32q-10.11 0-23.13-7a85.18 85.18 0 0 1-23-18L479.24 255q28.67 37.57 76.76 37.57 36.16 0 57.68-19.59t21.51-48.89q0-22-11.92-38.38t-43.83-32.09zM236.05 65.92h-54.87l.18 19.73c-17.77-18-39.66-24.31-62.18-24.31a115.69 115.69 0 0 0 0 231.38c26.63 0 49.42-11.8 61.16-26.81 0 .91-.08 11.82-.11 13-.22 7.46-1.3 19.41-8.33 31.62A60.6 60.6 0 0 1 87.53 331l-27.29 47.5a114.77 114.77 0 0 0 59.46 16.64c30.36 0 68.22-12 95.07-49.21 22.33-30.92 21.28-60.13 21.28-88.41zM119.18 237.84A60.82 60.82 0 1 1 180 177a60.88 60.88 0 0 1-60.82 60.84zM454.8 65.92h-55.15v110c.11 15.58.09 42.57-11.4 54.14-5.51 5.54-11.51 10.5-24.24 10.5s-18.78-5-24.28-10.5c-11.49-11.57-11.46-38.56-11.35-54.14v-110h-55.11v109.61c-.15 22.57-.43 64.6 27.24 92.45 16.24 16.34 35.58 24.63 63.54 24.63s47.31-8.29 63.55-24.63c27.67-27.85 27.39-69.88 27.24-92.45z"/>
+      <path fill="#F45D48" d="M740.05 237.18c-6.29-.85-12.48-5.34-16-13.54-2.41-5.62-3.28-13-3.28-22.09V113.1h64.81V65.75h-64.81V4.25h-55v192.84c0 18.91 1.52 41.83 14 63 10.65 18 29.41 32.55 60.2 32.55 37.33 0 64.19-27 64.19-27l-33-40.58s-14.49 14.37-31.11 12.12z"/>
+    </svg>
+  </div>
+
+  <!-- Hero -->
+  <div class="email-hero">
+    <div class="hero-text">
+      <h1>Your state now requires a retirement plan.</h1>
+    </div>
+    <div class="hero-illustration">
+      <!-- Simple illustration: shield + checkmark in Gusto teal -->
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="width:90px;height:90px;">
+        <circle cx="50" cy="50" r="44" fill="#0A8080" opacity="0.12"/>
+        <path d="M50 14 L78 26 L78 50 C78 66 65 78 50 84 C35 78 22 66 22 50 L22 26 Z" fill="#0A8080" opacity="0.25"/>
+        <path d="M50 18 L74 29 L74 50 C74 64 63 75 50 80 C37 75 26 64 26 50 L26 29 Z" fill="#0A8080"/>
+        <polyline points="38,50 47,60 64,40" stroke="white" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="email-body">
+
+    <p class="intro-text">
+      Hi Brian,<br><br>
+      Several states now mandate that businesses with employees enroll in a state retirement program — or set up their own qualified plan. The good news: Gusto can help you comply in minutes, and you may qualify for up to <strong>$16,500 in federal tax credits</strong> to cover setup costs under SECURE 2.0.
+    </p>
+
+    <!-- Feature: What this means -->
+    <div class="feature-row">
+      <div class="feature-icon" style="background:#FEF0EE;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#F45D48"/>
+        </svg>
+      </div>
+      <div class="feature-copy">
+        <div class="feature-title">What this means for your business</div>
+        <div class="feature-desc">If your state has passed a retirement mandate and you don't yet offer a qualified plan, you may face penalties. Offering a 401(k) through Gusto satisfies the requirement and keeps you fully compliant.</div>
+      </div>
+    </div>
+
+    <!-- Feature: Tax credits -->
+    <div class="feature-row">
+      <div class="feature-icon" style="background:#E6F4F4;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" fill="#0A8080"/>
+        </svg>
+      </div>
+      <div class="feature-copy">
+        <div class="feature-title">Up to $16,500 in tax credits — already calculated for you</div>
+        <div class="feature-desc">Under SECURE 2.0, eligible small businesses can claim up to $5,000/year for 3 years in startup credits, plus an additional $500/year for auto-enrollment. Gusto shows your estimated credit before you commit.</div>
+      </div>
+    </div>
+
+    <!-- Feature: Easy setup -->
+    <div class="feature-row">
+      <div class="feature-icon" style="background:#E6F4F4;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="#0A8080"/>
+        </svg>
+      </div>
+      <div class="feature-copy">
+        <div class="feature-title">Set up in minutes — payroll data already pre-filled</div>
+        <div class="feature-desc">Because your payroll runs through Gusto, employee info, compensation, and contribution schedules sync automatically. No spreadsheets, no manual entry. Most plans are active within a few days.</div>
+      </div>
+    </div>
+
+    <!-- Feature: Auto-enrollment -->
+    <div class="feature-row">
+      <div class="feature-icon" style="background:#FEF0EE;">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" fill="#F45D48"/>
+        </svg>
+      </div>
+      <div class="feature-copy">
+        <div class="feature-title">Employees auto-enrolled — they can opt out anytime</div>
+        <div class="feature-desc">Gusto's default 401(k) sets auto-enrollment at 3% of pay, which research shows dramatically increases participation. Employees get full control to adjust or opt out from their own dashboard.</div>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <a href="#" class="cta-btn">See your 401(k) options</a>
+    </div>
+
+    <hr class="divider">
+
+    <p style="font-size:14px; color:#666; line-height:1.6; text-align:center;">
+      Questions about retirement plans? Our team is here to help.<br>
+      <a href="#" style="color:#F45D48; text-decoration:none; font-weight:600;">Chat with us</a> &nbsp;·&nbsp; <a href="#" style="color:#F45D48; text-decoration:none; font-weight:600;">Visit Help Center</a>
+    </p>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="email-footer">
+    <div class="footer-connect">Connect with us</div>
+    <p class="footer-text">
+      Have questions? Call us at <a href="#">415-495-2090</a>, weekdays from 8 AM to 6 PM MT.
+    </p>
+    <p class="footer-legal">
+      You're receiving this email because you have an account with Gusto.<br>
+      <a href="#">Unsubscribe</a> &nbsp;·&nbsp; <a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a><br><br>
+      Gusto · 525 20th Street · San Francisco, CA 94107
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
