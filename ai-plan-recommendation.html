@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>401(k) Setup — Plan Recommendation | Wonderwall Inc. | Gusto</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .vision-banner {
+      background: #7C3AED;
+      color: white;
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 7px 16px;
+      letter-spacing: 0.4px;
+    }
+    .vision-banner a { color: #DDD6FE; text-decoration: underline; }
+
+    .wizard-wrap { max-width: 720px; margin: 0 auto; padding: 32px 40px 64px; }
+
+    .breadcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .breadcrumb a { color: var(--text-muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gusto-green); }
+    .breadcrumb span { margin: 0 6px; }
+
+    .step-bar { display: flex; align-items: center; margin-bottom: 8px; }
+    .step-dot { width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0; }
+    .step-dot.active { background: var(--gusto-green); color: white; }
+    .step-dot.upcoming { background: white; color: var(--text-muted); border: 2px solid var(--border); }
+    .step-dot.done { background: var(--gusto-green); color: white; font-size: 16px; }
+    .step-line { flex:1;height:2px;min-width:40px; }
+    .step-line.done { background: var(--gusto-green); }
+    .step-line.upcoming { background: var(--border); }
+    .step-label { font-size:13px;color:var(--text-secondary);margin-bottom:28px;font-weight:500; }
+
+    .wizard-title { font-size:28px;font-weight:800;margin-bottom:10px;line-height:1.2; }
+    .wizard-subtitle { font-size:15px;color:var(--text-secondary);line-height:1.6;margin-bottom:28px; }
+
+    .ai-recommendation {
+      border: 1.5px solid #DDD6FE;
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 28px;
+      position: relative;
+    }
+    .ai-rec-header {
+      background: #7C3AED;
+      color: white;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .ai-rec-sub {
+      font-size: 11.5px;
+      font-weight: 400;
+      opacity: 0.85;
+      margin-top: 1px;
+    }
+    .match-table { width: 100%; border-collapse: collapse; }
+    .match-table th {
+      background: #F5F3FF;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #5B21B6;
+      text-align: left;
+      border-bottom: 1px solid #DDD6FE;
+    }
+    .match-table td {
+      padding: 12px 14px;
+      font-size: 13px;
+      color: var(--text-primary);
+      border-bottom: 1px solid #EDE9FE;
+      vertical-align: middle;
+    }
+    .match-table tr:last-child td { border-bottom: none; }
+    .match-table tr.recommended { background: #F5F3FF; }
+    .match-table tr.recommended td { font-weight: 600; }
+    .rec-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #7C3AED;
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .bar-wrap { display: flex; align-items: center; gap: 8px; }
+    .bar-track { width: 80px; height: 6px; background: #EDE9FE; border-radius: 3px; flex-shrink: 0; }
+    .bar-fill { height: 6px; border-radius: 3px; background: #7C3AED; }
+
+    .adp-warning {
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 12px 16px 14px;
+      font-size: 12.5px;
+      color: #92400E;
+      line-height: 1.55;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .prefilled-table { border:1px solid var(--border);border-radius:var(--radius);overflow:visible;margin-bottom:28px; }
+    .prefilled-row { display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border); }
+    .prefilled-row:last-child { border-bottom:none; }
+    .prefilled-label { width:210px;font-size:13px;color:var(--text-secondary);font-weight:500;flex-shrink:0; }
+    .prefilled-value { flex:1;font-size:14px;font-weight:600;color:var(--text-primary); }
+    .prefilled-source { font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:100px;flex-shrink:0; }
+    .source-payroll { background:var(--gusto-green-bg);color:var(--gusto-green); }
+    .source-ai { background:#EDE9FE;color:#7C3AED; }
+    .source-selected { background:#E0E7FF;color:#3730A3; }
+
+    .wizard-cta { width:100%;justify-content:center;padding:15px;font-size:15px;border-radius:8px; }
+    .wizard-secondary { text-align:center;margin-top:14px;font-size:13px;color:var(--text-muted); }
+    .wizard-secondary a { color:var(--text-muted);text-decoration:underline; }
+
+    .payroll-badge {
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--gusto-green-bg);color:var(--gusto-green);
+      font-size:13px;font-weight:600;padding:7px 14px;border-radius:100px;margin-bottom:24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="vision-banner">
+  Year 2 vision &nbsp;·&nbsp; AI capabilities enabled by the Months 6–12 data foundation &nbsp;&nbsp;<a href="index.html">← Back to overview</a>
+</div>
+
+<button class="cm-toggle cm-off" id="cm-toggle">
+  <span class="cm-toggle-dot"></span>
+  Product thinking
+</button>
+
+<header class="topbar">
+  <button class="icon-btn" style="font-size:20px;color:#374151;">☰</button>
+  <a href="home-v2.html" style="display:flex;align-items:center;text-decoration:none;line-height:0;">
+    <svg viewBox="0 0 1040.65 399.35" xmlns="http://www.w3.org/2000/svg" style="width:68px;height:auto;color:var(--gusto-red);display:block;" aria-label="Gusto" role="img">
+      <path fill="currentColor" d="M920.06 61.34A115.69 115.69 0 1 0 1035.74 177 115.81 115.81 0 0 0 920.06 61.34zm0 176.5A60.82 60.82 0 1 1 980.88 177a60.89 60.89 0 0 1-60.82 60.84zM579.44 153.62l-20.21-10.1q-13.14-6.47-16.46-10.2a12 12 0 0 1-3.33-8.18c0-3.9 1.74-7.17 5.25-9.8s8.35-3.94 14.54-3.94q17 0 37.78 20.61l34.14-34.14a89.18 89.18 0 0 0-72.32-36.36q-31.32 0-51.41 18.48t-20.1 44.54q0 40.41 53.33 67.28l18.58 9.29q24 12.12 24 24.85 0 6.87-6.66 12.12T559 243.32q-10.11 0-23.13-7a85.18 85.18 0 0 1-23-18L479.24 255q28.67 37.57 76.76 37.57 36.16 0 57.68-19.59t21.51-48.89q0-22-11.92-38.38t-43.83-32.09zM236.05 65.92h-54.87l.18 19.73c-17.77-18-39.66-24.31-62.18-24.31a115.69 115.69 0 0 0 0 231.38c26.63 0 49.42-11.8 61.16-26.81 0 .91-.08 11.82-.11 13-.22 7.46-1.3 19.41-8.33 31.62A60.6 60.6 0 0 1 87.53 331l-27.29 47.5a114.77 114.77 0 0 0 59.46 16.64c30.36 0 68.22-12 95.07-49.21 22.33-30.92 21.28-60.13 21.28-88.41zM119.18 237.84A60.82 60.82 0 1 1 180 177a60.88 60.88 0 0 1-60.82 60.84zM454.8 65.92h-55.15v110c.11 15.58.09 42.57-11.4 54.14-5.51 5.54-11.51 10.5-24.24 10.5s-18.78-5-24.28-10.5c-11.49-11.57-11.46-38.56-11.35-54.14v-110h-55.11v109.61c-.15 22.57-.43 64.6 27.24 92.45 16.24 16.34 35.58 24.63 63.54 24.63s47.31-8.29 63.55-24.63c27.67-27.85 27.39-69.88 27.24-92.45z"/>
+      <path fill="currentColor" d="M740.05 237.18c-6.29-.85-12.48-5.34-16-13.54-2.41-5.62-3.28-13-3.28-22.09V113.1h64.81V65.75h-64.81V4.25h-55v192.84c0 18.91 1.52 41.83 14 63 10.65 18 29.41 32.55 60.2 32.55 37.33 0 64.19-27 64.19-27l-33-40.58s-14.49 14.37-31.11 12.12z"/>
+    </svg>
+  </a>
+  <div class="topbar-right">
+    <button class="icon-btn">🔔</button>
+    <button class="icon-btn">🎁</button>
+    <button class="icon-btn">❓</button>
+    <div class="user-chip">
+      <div class="avatar">BM</div>
+      <div>
+        <div class="user-name">Brian My</div>
+        <div class="user-company">Wonderwall Inc.</div>
+      </div>
+      <span style="color:var(--text-muted);font-size:11px;">▾</span>
+    </div>
+  </div>
+</header>
+
+<div class="app-shell">
+
+  <nav class="sidebar">
+    <a href="home-v2.html" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M2.667 4.983a.75.75 0 0 1 .75.75v7.517h9.166V5.733a.75.75 0 0 1 1.5 0V14a.75.75 0 0 1-.75.75H2.667a.75.75 0 0 1-.75-.75V5.733a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M7.57 1.386a.75.75 0 0 1 .86 0l6.667 4.666a.75.75 0 0 1-.86 1.23L8 2.914 1.763 7.281a.75.75 0 1 1-.86-1.229zM5.25 10c0-1.15.932-2.083 2.083-2.083h1.334c1.15 0 2.083.932 2.083 2.083v4a.75.75 0 0 1-1.5 0v-4a.583.583 0 0 0-.583-.583H7.333A.583.583 0 0 0 6.75 10v4a.75.75 0 0 1-1.5 0z" clip-rule="evenodd"/></svg>Home</a>
+    <a href="#" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M2.5 2A1.5 1.5 0 0 0 1 3.5v9A1.5 1.5 0 0 0 2.5 14h11a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 13.5 2zM2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V5H2zm0 3h12v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5zM4 9.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5A.75.75 0 0 1 4 9.25z" clip-rule="evenodd"/></svg>Pay</a>
+    <a href="#" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M4.25 7.25A.75.75 0 0 1 5 8v3.75a.75.75 0 0 1-1.5 0V8a.75.75 0 0 1 .75-.75m3-4.5A.75.75 0 0 1 8 3.5v8.25a.75.75 0 0 1-1.5 0V3.5a.75.75 0 0 1 .75-.75m3 3.675a.75.75 0 0 1 .75.75v4.575a.75.75 0 0 1-1.5 0V7.175a.75.75 0 0 1 .75-.75m3-2.925a.75.75 0 0 1 .75.75v7.5a.75.75 0 0 1-1.5 0v-7.5a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M1.25.5a.75.75 0 0 1 .75.75v12c0 .415.335.75.75.75h12a.75.75 0 0 1 0 1.5h-12A2.25 2.25 0 0 1 .5 13.25v-12A.75.75 0 0 1 1.25.5" clip-rule="evenodd"/></svg>Reports</a>
+    <a href="#" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M3.5 1.5A1.5 1.5 0 0 0 2 3v10a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 14 13V3a1.5 1.5 0 0 0-1.5-1.5zM3.5 3h9v10h-9zm2 2.75a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75zm0 2.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75zm0 2.5a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75z" clip-rule="evenodd"/></svg>Taxes &amp; compliance</a>
+    <a href="#" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M8 1.25a6.75 6.75 0 1 0 0 13.5A6.75 6.75 0 0 0 8 1.25zM.5 8a7.5 7.5 0 1 1 15 0A7.5 7.5 0 0 1 .5 8zm7.25-4a.75.75 0 0 1 .75.75V7.5h2.25a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75v-4A.75.75 0 0 1 7.75 4z" clip-rule="evenodd"/></svg>Time &amp; attendance</a>
+    <a href="benefits-v2.html" class="nav-item active"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M5.228 2.75C3.37 2.75 2 4.53 2 6.316c0 1.865 1.172 3.6 2.628 4.918.717.648 1.47 1.167 2.115 1.52.322.176.607.305.84.389.246.09.38.107.417.107s.171-.018.418-.107a6 6 0 0 0 .84-.39 11.4 11.4 0 0 0 2.114-1.52C12.828 9.916 14 8.182 14 6.317c0-1.785-1.37-3.566-3.228-3.566-1.08 0-1.782.53-2.202 1.02a.75.75 0 0 1-1.14 0c-.42-.49-1.121-1.02-2.202-1.02ZM.5 6.316C.5 3.938 2.324 1.25 5.228 1.25c1.219 0 2.131.456 2.772.985a4.26 4.26 0 0 1 2.772-.985c2.904 0 4.728 2.688 4.728 5.066 0 2.486-1.536 4.593-3.122 6.03a13 13 0 0 1-2.4 1.723c-.374.204-.73.37-1.05.485-.305.11-.632.196-.928.196s-.623-.086-.928-.196a8 8 0 0 1-1.05-.485 13 13 0 0 1-2.4-1.724C2.036 10.91.5 8.802.5 6.316" clip-rule="evenodd"/></svg>Benefits</a>
+    <a href="#" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M3.5 1.5A1.5 1.5 0 0 0 2 3v10a1.5 1.5 0 0 0 1.5 1.5h9A1.5 1.5 0 0 0 14 13V3a1.5 1.5 0 0 0-1.5-1.5zM3.5 3h9v10h-9zm1.25 2.75a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75zm0 2.5a.75.75 0 0 1 .75-.75h5a.75.75 0 0 1 0 1.5h-5a.75.75 0 0 1-.75-.75zm0 2.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1-.75-.75z" clip-rule="evenodd"/></svg>Documents</a>
+    <a href="#" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M2.5 4A1.5 1.5 0 0 0 1 5.5v6A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5v-6A1.5 1.5 0 0 0 13.5 4zM2 5.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V6H2zm0 2h12v4a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5zM4 9a.75.75 0 0 0 0 1.5h2.5A.75.75 0 0 0 6.5 9z" clip-rule="evenodd"/></svg>Money</a>
+    <a href="#" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.25 6.25a.75.75 0 0 0 1.5 0 3.75 3.75 0 0 1 7.5 0 .75.75 0 0 0 1.5 0 5.25 5.25 0 0 0-10.5 0z"/></svg>People</a>
+    <div class="nav-spacer"></div>
+    <div class="nav-divider"></div>
+    <a href="app-directory.html" class="nav-item"><svg class="nav-svg" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M3.333 2.75a.583.583 0 0 0-.583.583v2c0 .323.26.584.583.584h2a.583.583 0 0 0 .584-.584v-2a.583.583 0 0 0-.584-.583zm-2.083.583c0-1.15.932-2.083 2.083-2.083h2c1.151 0 2.084.932 2.084 2.083v2a2.084 2.084 0 0 1-2.084 2.084h-2A2.083 2.083 0 0 1 1.25 5.333zm9.417-.583a.583.583 0 0 0-.584.583v2c0 .323.261.584.584.584h2a.583.583 0 0 0 .583-.584v-2a.583.583 0 0 0-.583-.583zm-2.084.583c0-1.15.933-2.083 2.084-2.083h2c1.15 0 2.083.932 2.083 2.083v2a2.083 2.083 0 0 1-2.083 2.084h-2a2.083 2.083 0 0 1-2.084-2.084zm-5.25 6.75a.583.583 0 0 0-.583.584v2c0 .322.26.583.583.583h2c.323 0 .584-.26.584-.583v-2a.583.583 0 0 0-.584-.584zm-2.083.584c0-1.151.932-2.084 2.083-2.084h2c1.151 0 2.084.933 2.084 2.084v2c0 1.15-.933 2.083-2.084 2.083h-2a2.083 2.083 0 0 1-2.083-2.083zM11.667 9.25a.75.75 0 0 1 .75.75v3.333a.75.75 0 0 1-1.5 0V10a.75.75 0 0 1 .75-.75" clip-rule="evenodd"/><path fill-rule="evenodd" d="M9.25 11.667a.75.75 0 0 1 .75-.75h3.333a.75.75 0 0 1 0 1.5H10a.75.75 0 0 1-.75-.75" clip-rule="evenodd"/></svg>App directory</a>
+    <div style="padding:12px 16px 0;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="avatar" style="width:28px;height:28px;font-size:11px;">BM</div>
+        <div>
+          <div style="font-size:12.5px;font-weight:600;">Wonderwall Inc.</div>
+          <div style="font-size:11.5px;color:var(--text-muted);">12 employees</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-area">
+    <div class="wizard-wrap">
+
+      <div class="breadcrumb">
+        <a href="benefits-v2.html">Benefits</a>
+        <span>›</span>
+        401(k) Setup
+      </div>
+
+      <div class="step-bar">
+        <div class="step-dot done">✓</div>
+        <div class="step-line done"></div>
+        <div class="step-dot active">2</div>
+        <div class="step-line upcoming"></div>
+        <div class="step-dot upcoming">3</div>
+      </div>
+      <div class="step-label">Step 2 of 3 — Your plan details</div>
+
+      <h1 class="wizard-title">Your plan is ready — and here's what Gusto recommends</h1>
+      <p class="wizard-subtitle">We analyzed 847 Gusto businesses with your payroll profile. Your plan details are pre-filled below, along with a match rate recommendation based on what actually worked for businesses like yours.</p>
+
+      <!-- AI recommendation block -->
+      <div class="ai-recommendation" style="position:relative;">
+        <span class="cm-badge" style="top:-10px;right:-10px;">1
+          <div class="cm-tip cm-tip-l">
+            <div class="cm-tip-label">Why this matters</div>
+            A rule defaults everyone to Safe Harbor. AI tells a specific owner: based on your compensation spread and the participation patterns Gusto has observed in 847 businesses like yours, here's what match rate actually drives retention. Human Interest and Vestwell can cite industry averages. Gusto can cite your cohort.
+          </div>
+        </span>
+        <div class="ai-rec-header">
+          <div>
+            <div>✦ &nbsp;Gusto AI recommendation &nbsp;·&nbsp; based on 847 businesses with your payroll profile</div>
+            <div class="ai-rec-sub">Compensation band: $55K–$95K avg &nbsp;·&nbsp; 10–15 employees &nbsp;·&nbsp; New York &nbsp;·&nbsp; Service sector</div>
+          </div>
+        </div>
+        <table class="match-table">
+          <thead>
+            <tr>
+              <th>Employer match</th>
+              <th>Est. employee participation</th>
+              <th>Avg retention lift</th>
+              <th>Monthly cost (12 employees)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>3% Safe Harbor</td>
+              <td>
+                <div class="bar-wrap">
+                  <div class="bar-track"><div class="bar-fill" style="width:58%;opacity:0.5;"></div></div>
+                  <span style="font-size:12.5px;color:var(--text-secondary);">~58%</span>
+                </div>
+              </td>
+              <td style="color:var(--text-secondary);font-size:12.5px;">+9 months</td>
+              <td style="color:var(--text-secondary);font-size:12.5px;">~$504/mo</td>
+            </tr>
+            <tr class="recommended" style="position:relative;">
+              <span class="cm-badge" style="top:-10px;right:-10px;">2
+                <div class="cm-tip cm-tip-l">
+                  <div class="cm-tip-label">The recommendation logic</div>
+                  4% is the inflection point in this cohort. Going from 3% to 4% match produces a 16-point jump in participation (58% to 74%) and adds 5 months of average tenure. Going from 4% to 5% adds only 5 more participation points and 2 months of tenure — less ROI for an additional $144/month. This is the specific calculus Gusto can run. Industry benchmarks cannot.
+                </div>
+              </span>
+              <td>
+                4% Safe Harbor
+                <span class="rec-badge">✦ Recommended</span>
+              </td>
+              <td>
+                <div class="bar-wrap">
+                  <div class="bar-track"><div class="bar-fill" style="width:74%;"></div></div>
+                  <span style="font-size:12.5px;font-weight:700;color:#7C3AED;">~74%</span>
+                </div>
+              </td>
+              <td style="color:#7C3AED;font-size:12.5px;font-weight:700;">+14 months</td>
+              <td style="color:#7C3AED;font-size:12.5px;font-weight:700;">~$672/mo</td>
+            </tr>
+            <tr>
+              <td>5% Safe Harbor</td>
+              <td>
+                <div class="bar-wrap">
+                  <div class="bar-track"><div class="bar-fill" style="width:79%;opacity:0.65;"></div></div>
+                  <span style="font-size:12.5px;color:var(--text-secondary);">~79%</span>
+                </div>
+              </td>
+              <td style="color:var(--text-secondary);font-size:12.5px;">+16 months</td>
+              <td style="color:var(--text-secondary);font-size:12.5px;">~$840/mo</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="adp-warning" style="position:relative;">
+          <span class="cm-badge" style="top:-10px;right:-10px;">3
+            <div class="cm-tip cm-tip-tl">
+              <div class="cm-tip-label">ADP test prediction</div>
+              ADP/ACP non-discrimination tests fail when highly compensated employees enroll at much higher rates than lower-paid employees. A rule defaults to Safe Harbor to eliminate that risk. AI predicts the specific probability for this business based on its actual compensation spread — and explains what it means for the owner's personal contribution limit. That is a personalized risk assessment, not a blanket recommendation.
+            </div>
+          </span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#92400E" style="flex-shrink:0;margin-top:1px;"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
+          <div>
+            <strong>ADP test risk:</strong> Your compensation spread puts you at a 31% probability of non-discrimination test failure without Safe Harbor. Safe Harbor eliminates that risk — and is what allows you as the owner to contribute the full $70,000 regardless of how many employees participate.
+          </div>
+        </div>
+      </div>
+
+      <!-- Pre-filled table -->
+      <div class="payroll-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        Powered by your Gusto payroll data
+      </div>
+
+      <div class="prefilled-table">
+        <div class="prefilled-row">
+          <div class="prefilled-label">Business name</div>
+          <div class="prefilled-value">Wonderwall Inc.</div>
+          <span class="prefilled-source source-payroll">From payroll</span>
+        </div>
+        <div class="prefilled-row">
+          <div class="prefilled-label">Eligible employees</div>
+          <div class="prefilled-value">12 active employees</div>
+          <span class="prefilled-source source-payroll">From payroll</span>
+        </div>
+        <div class="prefilled-row">
+          <div class="prefilled-label">Pay schedule</div>
+          <div class="prefilled-value">Biweekly (every other Friday)</div>
+          <span class="prefilled-source source-payroll">From payroll</span>
+        </div>
+        <div class="prefilled-row">
+          <div class="prefilled-label">Plan type</div>
+          <div class="prefilled-value">Safe Harbor 401(k)</div>
+          <span class="prefilled-source source-payroll">From payroll</span>
+        </div>
+        <div class="prefilled-row">
+          <div class="prefilled-label">Employer match</div>
+          <div class="prefilled-value">4% of eligible compensation</div>
+          <span class="prefilled-source source-ai" style="white-space:nowrap;">✦ AI recommended</span>
+        </div>
+        <div class="prefilled-row">
+          <div class="prefilled-label">Provider</div>
+          <div class="prefilled-value" style="display:flex;align-items:center;gap:8px;">
+            <span>Guideline, powered by Gusto</span>
+            <span style="font-size:12px;color:var(--text-muted);">SEC-registered 3(38) fiduciary</span>
+          </div>
+          <span class="prefilled-source source-selected">Selected</span>
+        </div>
+      </div>
+
+      <a href="ai-owner-roi.html" class="btn-primary wizard-cta">See your owner retirement picture →</a>
+      <div class="wizard-secondary">
+        <a href="setup-401k-1.html">← Back</a> &nbsp;·&nbsp; <a href="#">Edit match rate</a>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="coachmarks.js"></script>
+</body>
+</html>
