@@ -92,7 +92,7 @@
     .projection-table {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      overflow: hidden;
+      overflow: visible;
       margin-bottom: 28px;
     }
     .projection-table table { width:100%;border-collapse:collapse; }
@@ -105,6 +105,8 @@
       text-align: left;
       border-bottom: 1px solid #DDD6FE;
     }
+    .projection-table thead tr th:first-child { border-radius: var(--radius) 0 0 0; }
+    .projection-table thead tr th:last-child  { border-radius: 0 var(--radius) 0 0; }
     .projection-table td {
       padding: 13px 18px;
       font-size: 13.5px;
@@ -208,7 +210,7 @@
 
       <!-- Hero stat -->
       <div class="hero-stat" style="position:relative;">
-        <span class="cm-badge" style="top:-10px;right:-10px;background:white;color:#7C3AED;border:1.5px solid #DDD6FE;">1
+        <span class="cm-badge" style="top:-10px;right:-10px;">1
           <div class="cm-tip cm-tip-l">
             <div class="cm-tip-label">Why Gusto can show this</div>
             This number is calculated from your actual W-2 compensation in Gusto's payroll system. Human Interest can show an owner the general rule: "you can contribute up to $70,000." Gusto can show the owner their specific number: "at your salary of $185,000, maxing your 401(k) saves you $22,400 in federal taxes this year." That's the difference between information and a recommendation.
